@@ -56,34 +56,35 @@
 <?php
 	$html="<table>";
 		$html .="<tr>";
-			$html .="<th>Puit</th>";
-			$html .="<th>Kivi</th>";
-			$html .="<th>Raud</th>";
-			$html .="<th>Raha</th>";
-			$html .="<th>Toojoud</th>";
-			$html .="<th>Toit</th>";
+			$html .="<th>Wood</th>";
+			$html .="<th>Food</th>";
+			$html .="<th>Coins</th>";
+			$html .="<th>Stone</th>";
+			$html .="<th>Iron</th>";
+			$html .="<th>Workforce</th>";
 		$html .="</tr>";
 
 		foreach($res as $r) {
 			$html .="<tr>";
 				$html .="<td><div align='center'>".$r->wood."</div></td>";
+				$html .="<td><div align='center'>".$r->food."</div></td>";
+				$html .="<td><div align='center'>".$r->coins."</div></td>";
 				$html .="<td><div align='center'>".$r->stone."</div></td>";
 				$html .="<td><div align='center'>".$r->iron."</div></td>";
-				$html .="<td><div align='center'>".$r->coins."</div></td>";
 				$html .="<td><div align='center'>".$r->workforce."</div></td>";
-				$html .="<td><div align='center'>".$r->food."</div></td>";
 			$html .="</tr>";
 		}	
 	$html .="</table>";
 	echo $html;
 ?> 
-<p>Jaga kasklusi: <br>
-	<a href="woodcutting.php">Puutoostusele</a><br>
-	<a href="ironmining.php">Rauakaevandusele</a><br>
-	<a href="stonemining.php">Kivikaevandusele</a><br>
-	<a href="people.php">Rahvale</a><br>
-	<a href="trading.php">Kaubandusele</a><br>
-	<a href="farming.php">Farmidele</a>
+<p>Command: <br>
+	<a href="woodcutting.php">Woodcutters huts</a><br>
+	<a href="farming.php">Farms</a><br>
+	<a href="trading.php">Market</a><br>
+	<a href="stonemining.php">Quarry</a><br>
+	<a href="ironmining.php">Iron mines</a><br>
+	<a href="people.php">Houses</a><br>
+	<a href="war.php">War office</a>
 </p>
 
 <p>Sinu tegevused: </p>
@@ -146,16 +147,16 @@
 
 	$html="<table>";
 		$html .="<tr>";
-			$html .="<th>Kategooria</th>";
-			$html .="<th>Toojoud</th>";
-			$html .="<th>Loodud</th>";
-			$html .="<th>Staatus</th>";
+			$html .="<th>Action</th>";
+			$html .="<th>Workforce</th>";
+			$html .="<th>Created</th>";
+			$html .="<th>Status</th>";
 		$html .="</tr>";
 
 		foreach($action as $a) {
 			$strcreated=strtotime($a->created)+$a->time_input*3600-$current_datetime;
 			if ($strcreated <= 0){
-				$msg="<td><a href='data.php?action_id=".$a->id."'>Valmis!</a></td>";
+				$msg="<td><a href='data.php?action_id=".$a->id."'>Ready!</a></td>";
 			} else {
 				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
 			}

@@ -91,6 +91,7 @@
 		$user_id = $us->id;
 		$Resources->signUp($user_id);
 		$Modifiers->signUp($user_id);
+		$Combat->signUp($user_id);
 		$Levels->signUp($user_id);
 		
 	}

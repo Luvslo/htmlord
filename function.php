@@ -36,4 +36,7 @@
 	require("../Classes/Forum.class.php");
 	$Forum = new Forum($mysqli);
 	
+	require("../Classes/Combat.class.php");
+	$Combat = new Combat($mysqli);
+	
 ?>

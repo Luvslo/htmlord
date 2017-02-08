@@ -87,8 +87,8 @@
 		
 		
 		$User->signUp($signupEmail, $signupUsername, $password);
-		$us = getUser($signupUsername);
-		$user_id = $us->id;
+		$UsId = $User->getUsId($signupUsername);
+		$user_id = $UsId->id;
 		$Resources->signUp($user_id);
 		$Modifiers->signUp($user_id);
 		$Combat->signUp($user_id);
@@ -107,7 +107,7 @@
 		<body style="background-color:bisque;">
 
 			<h1>Loo kasutaja!</h1>
-			<a href="index.php">Avaleht</a>
+			<a href="../index.php">Avaleht</a>
 			<br>
 			<a href="login.php">Logi sisse!</a>
 			<br><br>

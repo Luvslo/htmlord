@@ -92,5 +92,32 @@ class User {
 		return $User;
 		
 	}
+	
+	function getUsId($username){
+		
+		$stmt = $this->connection->prepare("SELECT id, username FROM user_sample WHERE username=?");
+		
+		$stmt->bind_param("s", $username);
+		$stmt->bind_result($id, $username);
+		$stmt->execute();
+		
+		$UsId = new Stdclass();
+		
+		//saime ühe rea andmeid
+		if($stmt->fetch()){
+			
+			$UsId->id = $id;
+			$UsId->username = $username;
+			
+		}else{
+			
+			exit();
+		}
+		
+		$stmt->close();
+		
+		return $UsId;
+		
+	}
 } 
 ?>

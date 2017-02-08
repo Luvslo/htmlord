@@ -39,17 +39,17 @@
 	<?php require("../styles.php"); ?>
 	
 		<h1>Sinu territoorium</h1>
-		<a href="?logout=1">Logi valja</a><br>
-		<a href="forum.php">Foorum</a><br>
-		<a href="leaderboard.php">Edetabel</a>
+		<a href="?logout=1">Log out</a><br>
+		<a href="forum.php">Forum</a><br>
+		<a href="leaderboard.php">Leaderboard</a>
 		<br>
 		<p>
-			Tere tulemast <?=$_SESSION["username"];?>!
+			Welcome <?=$_SESSION["username"];?>!
 			<br>
 			Siin saad sa valitseda oma rahva ule.<br>
 			Mangid esimest korda? Vaikese ulevaate saad <a href="intro.php">siit!</a>
 			<br><br>
-			Sinu ressursid:
+			Your resources:
 		</p>
 	</body>
 </html>
@@ -87,7 +87,7 @@
 	<a href="war.php">War office</a>
 </p>
 
-<p>Sinu tegevused: </p>
+<p>Your actions: </p>
 <?php
 
 	foreach($mods as $m) {
@@ -143,12 +143,12 @@
 			$Actions->delet($_GET["action_id"]);
 			header("Location: data.php");
 		}
-		if($action_category=='attack_mod'){
+		if($action_category=='attack_training'){
 			$Combat->updateStats($action_user_id,0.005*$action_time_input,0);
 			$Actions->delet($_GET["action_id"]);
 			header("Location: data.php");
 		}
-		if($action_category=='defence_mod'){
+		if($action_category=='defence_training'){
 			$Combat->updateStats($action_user_id,0,0.005*$action_time_input);
 			$Actions->delet($_GET["action_id"]);
 			header("Location: data.php");

@@ -36,7 +36,7 @@
 			
 			$html .="<tr>";
 				$html .="<td>".$counter."</td>";
-				$html .="<td>".$l->username."</td>";
+				$html .="<td><a href='user.php?user_id=".$l->user_id."'>".$l->username."</td>";
 				$html .="<td>".$l->population."</td>";
 				$html .="<td>".$l->created."</td>";
 			$html .="</tr>";

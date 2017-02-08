@@ -10,7 +10,7 @@ class Leaderboard {
 	function get () {
 
 		$stmt = $this->connection->prepare("
-		SELECT user_sample.username, user_resource.population, user_sample.created
+		SELECT user_resource.user_id, user_sample.username, user_resource.population, user_sample.created
 		FROM user_resource
 		JOIN user_sample
 		ON user_resource.user_id=user_sample.id
@@ -19,7 +19,7 @@ class Leaderboard {
 		
 		echo $this->connection->error;
 
-		$stmt->bind_result($username, $population, $created);
+		$stmt->bind_result($user_id, $username, $population, $created);
 		$stmt->execute();
 		
 		$result = array();
@@ -27,6 +27,7 @@ class Leaderboard {
 		while ($stmt->fetch()) {
 			
 			$lb = new StdClass();
+			$lb->user_id=$user_id;
 			$lb->username=$username;
 			$lb->population=$population;
 			$lb->created=$created;

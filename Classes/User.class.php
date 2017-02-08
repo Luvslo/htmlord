@@ -102,8 +102,7 @@ class User {
 		$stmt->execute();
 		
 		$UsId = new Stdclass();
-		
-		//saime ühe rea andmeid
+
 		if($stmt->fetch()){
 			
 			$UsId->id = $id;
@@ -117,6 +116,32 @@ class User {
 		$stmt->close();
 		
 		return $UsId;
+		
+	}
+	
+	function getUsername($id){
+		
+		$stmt = $this->connection->prepare("SELECT id, username FROM user_sample WHERE id=?");
+		
+		$stmt->bind_param("i", $id);
+		$stmt->bind_result($id, $username);
+		$stmt->execute();
+		
+		$Username = new Stdclass();
+
+		if($stmt->fetch()){
+			
+			$Username->id = $id;
+			$Username->username = $username;
+			
+		}else{
+			
+			exit();
+		}
+		
+		$stmt->close();
+		
+		return $Username;
 		
 	}
 } 

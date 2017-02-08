@@ -39,4 +39,6 @@
 	require("../Classes/Combat.class.php");
 	$Combat = new Combat($mysqli);
 	
+	require("../Classes/Attacks.class.php");
+	$Attacks = new Attacks($mysqli);
 ?>

@@ -50,20 +50,20 @@ class Combat {
 		return $result;
 	}
 	
-	/*function update($user_id, $wood_mod, $stone_mod, $iron_mod, $coins_mod, $population_mod, $food_mod){
+	function updateStats($user_id, $attack_mod, $defence_mod){
 		
-		$stmt = $this->connection->prepare("UPDATE user_modifiers SET wood_mod=wood_mod+?, stone_mod=stone_mod+?, iron_mod=iron_mod+?, coins_mod=coins_mod+?, population_mod=population_mod+?, food_mod=food_mod+? WHERE user_id=?");
+		$stmt = $this->connection->prepare("UPDATE user_combat SET attack_mod=attack_mod+?, defence_mod=defence_mod+? WHERE user_id=?");
 		
-		$stmt->bind_param("iiiiiii",$wood_mod, $stone_mod, $iron_mod, $coins_mod, $population_mod, $food_mod, $user_id);
+		$stmt->bind_param("ddi",$attack_mod, $defence_mod, $user_id);
 		
 		if ($stmt->execute()) {
 			
-			echo "modide uuendamine onnestus! ";
+			echo "combat statide uuendamine onnestus! ";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
 		$stmt->close();
-	}*/
+	}
 	
 }
 ?>

@@ -143,6 +143,16 @@
 			$Actions->delet($_GET["action_id"]);
 			header("Location: data.php");
 		}
+		if($action_category=='attack_mod'){
+			$Combat->updateStats($action_user_id,0.005*$action_time_input,0);
+			$Actions->delet($_GET["action_id"]);
+			header("Location: data.php");
+		}
+		if($action_category=='defence_mod'){
+			$Combat->updateStats($action_user_id,0,0.005*$action_time_input);
+			$Actions->delet($_GET["action_id"]);
+			header("Location: data.php");
+		}
 	}
 
 	$html="<table>";

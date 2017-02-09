@@ -17,7 +17,7 @@
 	$post_title=$SPost->title;
 
 	if (isset($_POST['post_comment'])){
-		$Forum->saveComment($user_id, $post_id, $_POST['post_comment']);
+		$Forum->saveComment($user_id, $post_id, cleanInput($_POST['post_comment']));
 		
 	}
 ?>

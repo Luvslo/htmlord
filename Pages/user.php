@@ -65,11 +65,12 @@
 			$resource_error="You can't attack your own land.";
 		}else{
 			if($_POST['workforce_input']<=$pfood and $_POST['workforce_input']*2<=$pcoins and $_POST['workforce_input']>=1 and $_POST['workforce_input']<=$pworkforce ){
-				$Attacks->save($player_id, $user_id, $_POST['workforce_input']);
-				$Resources->updateWorkforce($player_id, $_POST['workforce_input']*-1);
-				$Resources->updateCoins($player_id, $_POST['workforce_input']*-2);
-				$Resources->updateFood($player_id, $_POST['workforce_input']*-1);
-				header("Location: data.php");
+				/*$Attacks->save($player_id, $user_id, cleanInput($_POST['workforce_input']));
+				$Resources->updateWorkforce($player_id, cleanInput($_POST['workforce_input']*-1));
+				$Resources->updateCoins($player_id, cleanInput($_POST['workforce_input']*-2));
+				$Resources->updateFood($player_id, cleanInput($_POST['workforce_input']*-1));
+				header("Location: data.php");*/
+				$resource_error="Sorry, you can't attack people jet.";
 			}else{
 				$resource_error="Invalid input";
 			}

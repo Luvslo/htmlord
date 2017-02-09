@@ -9,7 +9,7 @@
 	}
 	
 	if(isset($_POST["post_title"])){
-		$Forum->savePost($user_id, $_POST["post_title"]);
+		$Forum->savePost($user_id, cleanInput($_POST["post_title"]));
 		header("Location: forum.php");
 	}
 	

@@ -87,10 +87,10 @@
 	
 	if(isset($_POST['workforce_input']) and isset ($_POST['time_input'])){
 		if ($_POST['workforce_input']>=1 and $_POST['workforce_input']<=$workforce and $_POST['workforce_input']*2*$_POST['time_input']<=$food and $_POST['workforce_input']*2*$_POST['time_input']<=$coins){
-			$Actions->save($user_id, 'populate', $_POST['workforce_input'], $_POST['time_input']);
-			$Resources->updateWorkforce($user_id, $_POST['workforce_input']*-1);
-			$Resources->updateFood($user_id, $_POST['workforce_input']*-2*$_POST['time_input']);
-			$Resources->updateCoins($user_id, $_POST['workforce_input']*-2*$_POST['time_input']);
+			$Actions->save($user_id, 'populate', cleanInput($_POST['workforce_input']), cleanInput($_POST['time_input']));
+			$Resources->updateWorkforce($user_id, cleanInput($_POST['workforce_input'])*-1);
+			$Resources->updateFood($user_id, cleanInput($_POST['workforce_input'])*-2*cleanInput($_POST['time_input']));
+			$Resources->updateCoins($user_id, cleanInput($_POST['workforce_input'])*-2*cleanInput($_POST['time_input']));
 			header("Location: data.php");
 		} else {
 			$workforce_input_error="min=1, max=(toojoud voi toit/2 voi raha/2)*sisestatud aeg";

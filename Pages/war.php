@@ -70,12 +70,12 @@
 	if(isset($_POST['category_input'])and isset ($_POST['time_input'])){
 		if($_POST['time_input']*1000<=$food and $_POST['time_input']*2000<=$coins){
 				if($_POST['category_input']=='attack_training'){
-					$Actions->save($user_id, 'attack_training', 1,$_POST['time_input']);
+					$Actions->save($user_id, 'attack_training', 1,cleanInput($_POST['time_input']));
 				}else{
-					$Actions->save($user_id, 'defence_training', 1,$_POST['time_input']);
+					$Actions->save($user_id, 'defence_training', 1,cleanInput($_POST['time_input']));
 				}
-			$Resources->updateCoins($user_id, $_POST['time_input']*-2000);
-			$Resources->updateFood($user_id, $_POST['time_input']*-1000);
+			$Resources->updateCoins($user_id, cleanInput($_POST['time_input'])*-2000);
+			$Resources->updateFood($user_id, cleanInput($_POST['time_input'])*-1000);
 			header("Location: data.php");
 		}else{
 			$resource_error="You dont have enough resources";

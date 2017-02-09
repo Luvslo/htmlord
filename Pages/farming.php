@@ -119,8 +119,8 @@
 	
 	if(isset($_POST['workforce_input'])and isset ($_POST['time_input'])){
 		if ($_POST['workforce_input']>=1 and $_POST['workforce_input']<=$workforce ){
-			$Actions->save($user_id, 'farming', $_POST['workforce_input'], $_POST['time_input']);
-			$Resources->updateWorkforce($user_id, $_POST['workforce_input']*-1);
+			$Actions->save($user_id, 'farming', cleanInput($_POST['workforce_input']), cleanInput($_POST['time_input']));
+			$Resources->updateWorkforce($user_id, cleanInput($_POST['workforce_input']*-1));
 			header("Location: data.php");
 		} else {
 			$workforce_input_error="min=1, max=sinu toojoud";

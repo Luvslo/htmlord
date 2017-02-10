@@ -36,6 +36,7 @@
 		<title>Sinu territoorium</title>
 	</head>
 	<body style="background-color:bisque;">
+	<?php include_once("../analyticstracking.php") ?>
 	<?php require("../styles.php"); ?>
 	
 		<h1>Sinu territoorium</h1>

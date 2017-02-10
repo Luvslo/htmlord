@@ -92,7 +92,8 @@
 	</style>
 	</head>
 	<body style="background-color:bisque;">
-	
+		
+		<?php include_once("../analyticstracking.php") ?>
 		<h1>Foorum</h1>
 		<a href="data.php">Tagasi</a>
 		<br>

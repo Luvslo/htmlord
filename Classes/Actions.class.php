@@ -25,6 +25,9 @@ class Actions {
 			$action->id=$id;
 			$action->user_id=$user_id;
 			$action->category=$category;
+				if($category=="attack_training" or $category=="defence_training"){
+					$_SESSION["war_training"]=true;
+				}
 			$action->workforce_input=$workforce_input;
 			$action->time_input=$time_input;
 			$action->created=$created;

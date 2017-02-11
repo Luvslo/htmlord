@@ -48,6 +48,7 @@ class User {
 				$_SESSION["userId"] = $id;
 				$_SESSION["email"] = $emailFromDb;
 				$_SESSION["username"] = $usernameFromDb;
+				$_SESSION["war_training"] = false;
 				
 				header("Location: data.php");
 				exit();

@@ -11,6 +11,9 @@
 	}
 	$res=$Resources->getUser ($user_id);
 	$cstats=$Combat->getUserStats ($user_id);
+	$action=$Actions->getUser ($user_id);
+	
+	
 	
 	foreach($cstats as $cs){
 		$attack_mod=$cs->attack_mod;
@@ -67,19 +70,22 @@
 	$html .="</table>";
 	echo $html;
 
-	if(isset($_POST['category_input'])and isset ($_POST['time_input'])){
+	if(isset($_POST['category_input'])and isset ($_POST['time_input']) and $_SESSION["war_training"]==false){
 		if($_POST['time_input']*1000<=$food and $_POST['time_input']*2000<=$coins){
-				if($_POST['category_input']=='attack_training'){
-					$Actions->save($user_id, 'attack_training', 1,cleanInput($_POST['time_input']));
-				}else{
-					$Actions->save($user_id, 'defence_training', 1,cleanInput($_POST['time_input']));
-				}
 			$Resources->updateCoins($user_id, cleanInput($_POST['time_input'])*-2000);
 			$Resources->updateFood($user_id, cleanInput($_POST['time_input'])*-1000);
+			if($_POST['category_input']=='attack_training'){
+				$Actions->save($user_id, 'attack_training', 1,cleanInput($_POST['time_input']));
+			}else{
+				$Actions->save($user_id, 'defence_training', 1,cleanInput($_POST['time_input']));
+			}
 			header("Location: data.php");
 		}else{
 			$resource_error="You dont have enough resources";
 		}
+	}
+	if($_SESSION["war_training"]==true){
+		$resource_error="You are already training";
 	}
 ?> 
 <p>

@@ -41,4 +41,7 @@
 	
 	require("../Classes/Attacks.class.php");
 	$Attacks = new Attacks($mysqli);
+	
+	require("../Classes/Data.class.php");
+	$Data = new Data($mysqli);
 ?>

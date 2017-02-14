@@ -24,6 +24,7 @@
 		
 		<h3>Uudised</h3>
 		<p>
+			*Kogu kraam kolis GitHubi avalikku reposse. <a href="https://github.com/ClevenL/htmlord">Vaata siit!</a><br>
 			*[UPDATE] Okei, nuud on toesti viimane update enne reworki<br>
 			Koik upgraded, 'Rakenda koik' nupp, voimalus valida, kui kauaks soovid toojoudu rakendada -0:50 03.02.2017<br>
             *Developing game rework, no updates untill ready - 14:35 31.01.2017<br>

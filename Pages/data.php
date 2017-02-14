@@ -147,11 +147,13 @@
 		if($action_category=='attack_training'){
 			$Combat->updateStats($action_user_id,0.005*$action_time_input,0);
 			$Actions->delet($_GET["action_id"]);
+			$_SESSION["war_training"]=false;
 			header("Location: data.php");
 		}
 		if($action_category=='defence_training'){
 			$Combat->updateStats($action_user_id,0,0.005*$action_time_input);
 			$Actions->delet($_GET["action_id"]);
+			$_SESSION["war_training"]=false;
 			header("Location: data.php");
 		}
 	}

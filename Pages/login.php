@@ -59,7 +59,7 @@
 	<body style="background-color:bisque;">
 			
 		<h1>Logi sisse!</h1>
-		<a href="index.php">Avaleht</a>
+		<a href="../index.php">Avaleht</a>
 		<br>
 		<a href="registration.php">Loo kasutaja!</a>
 		<br><br>

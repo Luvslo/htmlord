@@ -19,7 +19,7 @@
 	$UsId = $User->getUsId($sender);
 	$sender_id = $UsId->id;
 	
-	if($receiver_id != $user_id or $sender_id != $user_id){
+	if($receiver_id != $user_id){
 		header("Location: postbox.php");
 		exit();
 	}

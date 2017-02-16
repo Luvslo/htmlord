@@ -53,7 +53,8 @@
 	<?php require("../styles.php"); ?>
 	
 		<h1><?php echo $username; ?></h1>
-		<a href="leaderboard.php">Back</a>
+		<a href="leaderboard.php">Back</a><br>
+		<a href="send.php?user_id=<?php echo $user_id;?>">Send a message</a>
 		<br>
 		<p>
 			You are visiting <?php echo $username;?>'s lands

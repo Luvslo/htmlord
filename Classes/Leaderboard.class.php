@@ -14,6 +14,7 @@ class Leaderboard {
 		FROM user_resource
 		JOIN user_sample
 		ON user_resource.user_id=user_sample.id
+		WHERE user_sample.delet IS NULL 
 		ORDER BY user_resource.population DESC 
 		");
 		

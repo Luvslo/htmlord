@@ -44,4 +44,7 @@
 	
 	require("../Classes/Data.class.php");
 	$Data = new Data($mysqli);
+	
+	require("../Classes/Message.class.php");
+	$Message = new Message($mysqli);
 ?>

@@ -65,10 +65,7 @@
 			
 			<label>Kommentaar: </label>
 				<br>
-				<textarea rows="5" cols="40" name="post_comment">
-				
-			
-				</textarea> 
+				<textarea rows="5" cols="40" name="post_comment"></textarea> 
 			<br>
 			<input type="submit" value="Postita"><br><br>
 			

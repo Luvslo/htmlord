@@ -145,5 +145,31 @@ class User {
 		return $Username;
 		
 	}
+	
+	function getName($id){
+		
+		$stmt = $this->connection->prepare("SELECT id, username FROM user_sample WHERE id=?");
+		
+		$stmt->bind_param("i", $id);
+		$stmt->bind_result($id, $username);
+		$stmt->execute();
+		
+		$result = array();
+		
+		while ($stmt->fetch()) {
+			
+			$name = new StdClass();
+			$name->id=$id;
+			$name->username=$username;
+			
+			array_push($result, $name);
+			
+		}
+		
+		$stmt->close();
+		
+		return $result;
+		
+	}
 } 
 ?>

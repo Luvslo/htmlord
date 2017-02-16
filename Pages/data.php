@@ -27,7 +27,9 @@
 	$res=$Resources->getUser ($user_id);
 	$mods=$Modifiers->getUser ($user_id);
 	$action=$Actions->getUser ($user_id);
-	
+	$count=$Message->getUnReadCount ($user_id);
+	$unread_count=$count->unread_count;
+
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +44,9 @@
 		<h1>Sinu territoorium</h1>
 		<a href="?logout=1">Log out</a><br>
 		<a href="forum.php">Forum</a><br>
-		<a href="leaderboard.php">Leaderboard</a>
+		<a href="leaderboard.php">Leaderboard</a><br>
 		<br>
+		<a href="postbox.php">Postbox (<?php echo $unread_count;?> unread)</a><br>
 		<p>
 			Welcome <?=$_SESSION["username"];?>!
 			<br>

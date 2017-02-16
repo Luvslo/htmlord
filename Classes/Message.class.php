@@ -7,29 +7,35 @@ class Message {
 		$this->connection = $mysqli;
 	}
 	
-	/*function getUser ($user_id) {
+	function getUser ($user_id) {
 
-		$stmt = $this->connection->prepare("SELECT id, user_id, category, workforce_input, time_input, created FROM user_actions WHERE user_id=? AND deleted IS NULL");
+		$stmt = $this->connection->prepare("
+		SELECT user_messages.id, user_sample.username, user_messages.receiver_id, user_messages.title, user_messages.created, user_messages.seen 
+		FROM user_messages 
+		JOIN user_sample 
+		ON user_messages.sender_id=user_sample.id 
+		WHERE user_messages.receiver_id=? AND user_messages.receiver_deleted IS NULL
+		");
 		
 		echo $this->connection->error;
 		
 		$stmt->bind_param("i", $user_id);
-		$stmt->bind_result($id, $user_id, $category, $workforce_input, $time_input, $created);
+		$stmt->bind_result($id, $username, $receiver_id, $title, $created, $seen);
 		$stmt->execute();
 		
 		$result = array();
 		
 		while ($stmt->fetch()) {
 			
-			$action = new StdClass();
-			$action->id=$id;
-			$action->user_id=$user_id;
-			$action->category=$category;
-			$action->workforce_input=$workforce_input;
-			$action->time_input=$time_input;
-			$action->created=$created;
+			$messages = new StdClass();
+			$messages->id=$id;
+			$messages->username=$username;
+			$messages->receiver_id=$receiver_id;
+			$messages->title=$title;
+			$messages->created=$created;
+			$messages->seen=$seen;
 			
-			array_push($result, $action);
+			array_push($result, $messages);
 			
 		}
 		
@@ -38,32 +44,112 @@ class Message {
 		return $result;
 	}
 	
-	function getSingle($action_id){
+	function getUserSent ($user_id) {
 
-		$stmt = $this->connection->prepare("SELECT id, user_id, category, workforce_input, time_input FROM `user_actions` WHERE id=?");
+		$stmt = $this->connection->prepare("
+		SELECT user_messages.id, user_messages.sender_id, user_sample.username, user_messages.title, user_messages.created, user_messages.seen 
+		FROM user_messages 
+		JOIN user_sample 
+		ON user_messages.receiver_id=user_sample.id 
+		WHERE user_messages.sender_id=? AND user_messages.sender_deleted IS NULL
+		");
 		
 		echo $this->connection->error;
 		
-		$stmt->bind_param("i", $action_id);
-		$stmt->bind_result($id, $user_id, $category, $workforce_input, $time_input);
+		$stmt->bind_param("i", $user_id);
+		$stmt->bind_result($id, $sender_id, $username, $title, $created, $seen);
+		$stmt->execute();
+		
+		$result = array();
+		
+		while ($stmt->fetch()) {
+			
+			$messagesSent = new StdClass();
+			$messagesSent->id=$id;
+			$messagesSent->sender_id=$sender_id;
+			$messagesSent->username=$username;
+			$messagesSent->title=$title;
+			$messagesSent->created=$created;
+			$messagesSent->seen=$seen;
+			
+			array_push($result, $messagesSent);
+			
+		}
+		
+		$stmt->close();
+		
+		return $result;
+	}
+	
+	function getSingle($message_id){
+
+		$stmt = $this->connection->prepare("
+		SELECT user_messages.id, user_sample.username, user_messages.receiver_id, user_messages.title, user_messages.content
+		FROM user_messages 
+		JOIN user_sample 
+		ON user_messages.sender_id=user_sample.id 
+		WHERE user_messages.id=?
+		");
+		
+		echo $this->connection->error;
+		
+		$stmt->bind_param("i", $message_id);
+		$stmt->bind_result($id, $username, $receiver_id, $title, $content);
 		$stmt->execute();
 
-		$SRes = new Stdclass();
+		$message = new Stdclass();
 
 		if($stmt->fetch()){
-			$SRes->id = $id;
-			$SRes->user_id = $user_id;
-			$SRes->category = $category;
-			$SRes->workforce_input = $workforce_input;
-			$SRes->time_input = $time_input;
+			$message->id = $id;
+			$message->username = $username;
+			$message->receiver_id = $receiver_id;
+			$message->title = $title;
+			$message->content = $content;
 		}else{
 			exit();
 		}
 		$stmt->close();
 		
-		return $SRes;
+		return $message;
 	}
 	
+	function getUnReadCount($user_id){
+
+		$stmt = $this->connection->prepare("SELECT COUNT(*) FROM user_messages WHERE receiver_id=? AND seen IS NULL");
+		
+		echo $this->connection->error;
+		
+		$stmt->bind_param("i", $user_id);
+		$stmt->bind_result($unread_count);
+		$stmt->execute();
+
+		$count = new Stdclass();
+
+		if($stmt->fetch()){
+			$count->unread_count = $unread_count;
+		}else{
+			exit();
+		}
+		$stmt->close();
+		
+		return $count;
+	}
+	
+	function setSeen($message_id){
+
+		$stmt = $this->connection->prepare("UPDATE user_messages SET seen=NOW(), created=created WHERE id=?");
+		
+		$stmt->bind_param("i", $message_id);
+		
+		if ($stmt->execute()) {
+			
+			echo "";
+		} else {
+			echo "ERROR ".$stmt->error;
+		}
+		$stmt->close();
+	}
+	/*
 	function delet($action_id){
 
 		$stmt = $this->connection->prepare("UPDATE user_actions SET deleted=NOW() WHERE id=? AND deleted IS NULL");

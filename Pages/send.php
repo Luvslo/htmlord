@@ -77,7 +77,8 @@
 	<body style="background-color:bisque;">
 	
 		<h1>Send a message</h1>
-		<a href='<?php echo $back_button;?>'>Back</a>
+		<a href='<?php echo $back_button;?>'>Back</a><br>
+		<a href='postbox.php'>Postbox</a>
 		<br><br>
 		
 		<form method="POST">

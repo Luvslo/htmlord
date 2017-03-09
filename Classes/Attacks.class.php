@@ -38,37 +38,69 @@ class Attacks {
 		return $result;
 	}
 	
-	function getSingle($action_id){
+	function getUserDefences ($user_id) {
 
-		$stmt = $this->connection->prepare("SELECT id, user_id, category, workforce_input, time_input FROM `user_actions` WHERE id=?");
+		$stmt = $this->connection->prepare("SELECT id, attacker_id, victim_id, category, workforce_input, created FROM user_attacks WHERE victim_id=? AND deleted IS NULL");
 		
 		echo $this->connection->error;
 		
-		$stmt->bind_param("i", $action_id);
-		$stmt->bind_result($id, $user_id, $category, $workforce_input, $time_input);
+		$stmt->bind_param("i", $user_id);
+		$stmt->bind_result($id, $attacker_id, $victim_id, $category, $workforce_input, $created);
+		$stmt->execute();
+		
+		$result = array();
+		
+		while ($stmt->fetch()) {
+			
+			$attack = new StdClass();
+			$attack->id=$id;
+			$attack->attacker_id=$attacker_id;
+			$attack->victim_id=$victim_id;
+			$attack->category=$category;
+			$attack->workforce_input=$workforce_input;
+			$attack->created=$created;
+			
+			array_push($result, $attack);
+			
+		}
+		
+		$stmt->close();
+		
+		return $result;
+	}
+	
+	function getSingle($attack_id){
+
+		$stmt = $this->connection->prepare("SELECT id, attacker_id, victim_id, category, workforce_input, created FROM `user_attacks` WHERE id=?");
+		
+		echo $this->connection->error;
+		
+		$stmt->bind_param("i", $attack_id);
+		$stmt->bind_result($id, $attacker_id, $victim_id, $category, $workforce_input, $created);
 		$stmt->execute();
 
-		$SRes = new Stdclass();
+		$att = new Stdclass();
 
 		if($stmt->fetch()){
-			$SRes->id = $id;
-			$SRes->user_id = $user_id;
-			$SRes->category = $category;
-			$SRes->workforce_input = $workforce_input;
-			$SRes->time_input = $time_input;
+			$att->id=$id;
+			$att->attacker_id=$attacker_id;
+			$att->victim_id=$victim_id;
+			$att->category=$category;
+			$att->workforce_input=$workforce_input;
+			$att->created=$created;
 		}else{
 			exit();
 		}
 		$stmt->close();
 		
-		return $SRes;
+		return $att;
 	}
 	
-	function delet($action_id){
+	function delet($attack_id){
 
-		$stmt = $this->connection->prepare("UPDATE user_actions SET deleted=NOW() WHERE id=? AND deleted IS NULL");
+		$stmt = $this->connection->prepare("UPDATE user_attacks SET deleted=NOW() WHERE id=? AND deleted IS NULL");
 		
-		$stmt->bind_param("i", $action_id);
+		$stmt->bind_param("i", $attack_id);
 		
 		if ($stmt->execute()) {
 			

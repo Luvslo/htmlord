@@ -14,6 +14,7 @@
 	$res=$Resources->getUser ($user_id);
 	$cstats=$Combat->getUserStats ($user_id);
 	$attacks=$Attacks->getUser ($user_id);
+	$defences=$Attacks->getUserDefences ($user_id);
 	
 	
 	foreach($cstats as $cs){
@@ -49,7 +50,8 @@
 		
 		$def_points=$victim_defence_mod*$victim_workforce;
 		
-		foreach($attacks as $a){$attack_workforce=$a->workforce_input;}
+		$single_attack=$Attacks->getSingle($attack_id);
+		$attack_workforce=$single_attack->workforce_input;
 		
 		$att_points=$attack_mod*$attack_workforce;
 		
@@ -78,8 +80,127 @@
 		$Resources->updatePopulation($user_id, round($attack_workforce*$att_cas*(-2)));
 		$Resources->updatePopulation($victim_id, round($victim_workforce*$def_cas*(-2)));
 		
-		echo $att_cas." ".$def_cas." ".$att_points." ".$def_points;
+		$Attacks->delet($attack_id);
 		
+		if ($att_points>=$def_points){
+			
+			$Message->save(47, $user_id, "Attack report", "
+			You won! \n
+			Your army defeated user ".$victim_id."'s defences and collected: \n
+			".round($victim_iron*$def_cas)." iron \n
+			".round($victim_wood*$def_cas)." wood \n
+			".round($victim_stone*$def_cas)." stone \n
+			".round($victim_coins*$def_cas)." coins \n
+			".round($victim_food*$def_cas)." food \n
+			All your soldiers returned.");	
+			
+			$Message->save(47, $victim_id, "Defence report", "
+			Your defences got defeated by user ".$user_id."'s army and you lost: \n
+			".round($victim_iron*$def_cas)." iron \n
+			".round($victim_wood*$def_cas)." wood \n
+			".round($victim_stone*$def_cas)." stone \n
+			".round($victim_coins*$def_cas)." coins \n
+			".round($victim_food*$def_cas)." food \n
+			You lost ".round($victim_workforce*$def_cas*(-1)." good men."));
+			
+		}else{
+			
+			$Message->save(47, $user_id, "Attack report", "Your army wasn't able to \n 
+			defeat user ".$victim_id."s defences. \n
+			".$attack_workforce." of sent forces returned ".$attack_workforce*(1-$att_cas)."");
+			
+			$Message->save(47, $victim_id, "Defence report", "You were able to defend \n 
+			user ".$user_id."s attack against you. \n
+			");
+		}
+		
+		header("Location: war.php");
+	}
+	
+	if (isset($_GET["attacker_id"])) {
+		$attack_id=$_GET["attack_id"];
+		$attacker_id=$_GET["attacker_id"];
+		
+		$attacker_cstats=$Combat->getUserStats ($attack_id);
+		foreach($attacker_cstats as $acs){$attacker_attack_mod=$acs->attack_mod;}
+		
+		$attacker_res=$Resources->getUser ($attacker_id);
+		foreach($attacker_res as $ar){
+			$attacker_workforce=$ar->workforce;
+			$attacker_wood=$ar->wood;
+			$attacker_stone=$ar->stone;
+			$attacker_iron=$ar->iron;
+			$attacker_coins=$ar->coins;
+			$attacker_food=$ar->food;
+			
+		}
+		
+		$single_attack=$Attacks->getSingle($attack_id);
+		$attack_workforce=$single_attack->workforce_input;
+		
+		$att_points=$attacker_attack_mod*$attack_workforce;
+		$def_points=$defence_mod*$workforce;
+		
+		$casualties=casCalc($att_points, $def_points);
+		$att_cas=$casualties[0];
+		$def_cas=$casualties[1];
+		
+		$Resources->updateIron($user_id, round($iron*$def_cas*(-1)));
+		$Resources->updateIron($attacker_id, round($iron*$def_cas));
+		
+		$Resources->updateWood($attacker_id, round($wood*$def_cas));
+		$Resources->updateWood($user_id, round($wood*$def_cas*(-1)));
+		
+		$Resources->updateCoins($user_id, round($coins*$def_cas*(-1)));
+		$Resources->updateCoins($attacker_id, round($coins*$def_cas));
+		
+		$Resources->updateStone($attacker_id, round($stone*$def_cas));
+		$Resources->updateStone($user_id, round($stone*$def_cas*(-1)));
+		
+		$Resources->updateFood($user_id, round($food*$def_cas*(-1)));
+		$Resources->updateFood($attacker_id, round($food*$def_cas));
+		
+		$Resources->updateWorkforce($attacker_id, round($attack_workforce*(1-$att_cas)));
+		$Resources->updateWorkforce($user_id, round($workforce*$def_cas*(-1)));
+		
+		$Resources->updatePopulation($attacker_id, round($attack_workforce*$att_cas*(-2)));
+		$Resources->updatePopulation($user_id, round($workforce*$def_cas*(-2)));
+		
+		$Attacks->delet($attack_id);
+		
+		if ($att_points>=$def_points){
+			
+			$Message->save(47, $attacker_id, "Attack report", "
+			You won! \n
+			Your army defeated user ".$user_id."'s defences and collected: \n
+			".round($iron*$def_cas)." iron \n
+			".round($wood*$def_cas)." wood \n
+			".round($stone*$def_cas)." stone \n
+			".round($coins*$def_cas)." coins \n
+			".round($food*$def_cas)." food \n
+			All your soldiers returned.");	
+			
+			$Message->save(47, $user_id, "Defence report", "
+			Your defences got defeated by user ".$attacker_id."'s army and you lost: \n
+			".round($iron*$def_cas)." iron \n
+			".round($wood*$def_cas)." wood \n
+			".round($stone*$def_cas)." stone \n
+			".round($coins*$def_cas)." coins \n
+			".round($food*$def_cas)." food \n
+			You lost ".round($workforce*$def_cas*(-1)." good men."));
+			
+		}else{
+			
+			$Message->save(47, $attacker_id, "Attack report", "Your army wasn't able to \n 
+			defeat user ".$user_id."s defences. \n
+			".$attack_workforce." of sent forces returned ".$attack_workforce*(1-$att_cas)."");
+			
+			$Message->save(47, $user_id, "Defence report", "You were able to defend \n 
+			user ".$attacker_id."s attack against you. \n
+			");
+		}
+		
+		header("Location: war.php");
 	}
 ?>
 
@@ -208,5 +329,34 @@
 		}	
 	$html .="</table>";
 	echo $html;
+?>
+<p>Your current defences: </p>
+<?php
+	$html="<table>";
+		$html .="<tr>";
+			$html .="<th>Attacker</th>";
+			$html .="<th>Victim</th>";
+			$html .="<th>Category</th>";
+			$html .="<th>Started</th>";
+			$html .="<th>Status</th>";
+		$html .="</tr>";
 
+		foreach($defences as $d) {
+			$strcreated=strtotime($d->created)+3600-$current_datetime;
+			if ($strcreated <= 0){
+				$msg="<td><a href='war.php?attack_id=".$d->id."&attacker_id=".$d->attacker_id."'>Ready!</a></td>";
+			} else {
+				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
+			}
+			$html .="<tr>";
+				$html .="<td>".$d->attacker_id."</td>";
+				$html .="<td>".$d->victim_id."</td>";
+				$html .="<td>".$d->category."</td>";
+				$html .="<td>".$d->created."</td>";
+				$html .=$msg;
+			$html .="</tr>";
+
+		}	
+	$html .="</table>";
+	echo $html;
 ?>

@@ -63,7 +63,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -78,7 +78,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -93,7 +93,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -108,7 +108,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -123,7 +123,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -138,7 +138,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}
@@ -153,7 +153,7 @@ class Resources {
 		
 		if ($stmt->execute()) {
 			
-			echo "Ressursside uuendamine onnestus! ";
+			echo "";
 		} else {
 			echo "ERROR ".$stmt->error;
 		}

@@ -47,4 +47,27 @@
 	
 	require("../Classes/Message.class.php");
 	$Message = new Message($mysqli);
+	
+	function casCalc ($att_points, $def_points){
+		$def_cas=0;
+		$att_cas=0;
+		$max_def_cas=0.1;
+		$max_att_cas=0.2;
+		$rand_pro=rand(-0.03,0.03);
+		$multiplier=5;
+		$sum=$att_points+$def_points;
+		$dis=abs($att_points-$def_points);
+		$lose_pro=$dis/$sum;
+		
+		if ($att_points<=$def_points){
+			$att_cas=$lose_pro+$rand_pro;
+		}else{
+			$def_cas=$lose_pro+$rand_pro;
+		}
+		if($att_cas>$max_att_cas){$att_cas=$max_att_cas;}
+		if($def_cas>$max_def_cas){$def_cas=$max_def_cas;}
+		
+		$procent=array($att_cas,$def_cas);
+		return $procent;
+	}
 ?>

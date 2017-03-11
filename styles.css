@@ -97,3 +97,11 @@ table{
 	font-weight: bold;
 	text-decoration: none;
 }
+
+.htmlord a:link, a:visited{
+	color: white;
+	font-weight: bold; 
+	text-align: left; 
+	padding: 10px; 
+	text-decoration: underline;
+}

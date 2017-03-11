@@ -10,7 +10,7 @@
 	<div class="borderless">
 		<table>
 			<tr>
-				<td colspan="4" style="font-size: 2em; font-weight: bold; text-align: left; padding: 10px; text-decoration: underline;" valign="bottom">HTMLord</td>
+				<td class="htmlord" colspan="4" style="font-size: 2em; font-weight: bold; text-align: left; padding: 10px; text-decoration: underline;" valign="bottom"><a href="news.php">HTMLord</a></td>
 				<td colspan="4"></td>
 			</tr>
 			<tr>

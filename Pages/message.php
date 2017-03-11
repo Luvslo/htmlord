@@ -30,13 +30,15 @@
 <html>
 	<head>
 		<title>Message</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-		<a href="postbox.php">Back</a><br>
-		<a href="send.php?user_id=<?php echo $sender_id;?>">Reply</a><br>
+	<body>
+		<?php require("../layout1.php");?>
+		<p><a href="send.php?user_id=<?php echo $sender_id;?>">Reply</a></p>
 		<h1><?php echo $title;?></h1>
 		<p>By <?php echo $sender;?></p>
 		<pre><?php echo $content;?></pre>
+		<?php require("../layout2.php");?>
 	</body>
 </html>
 

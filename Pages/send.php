@@ -73,13 +73,11 @@
 <html>
 	<head>
 		<title>Diplomacy</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	
+	<body>
+		<?php require("../layout1.php");?>
 		<h1>Send a message</h1>
-		<a href='<?php echo $back_button;?>'>Back</a><br>
-		<a href='postbox.php'>Postbox</a>
-		<br><br>
 		
 		<form method="POST">
 			
@@ -98,5 +96,6 @@
 			<input type="submit" value="Send">
 		
 		</form>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

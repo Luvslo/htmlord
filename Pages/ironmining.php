@@ -75,19 +75,13 @@
 <html>
 	<head>
 		<title>Rauakaevandus</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
-		<h1>Sinu rauakaevandus</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
+	<body>
+		<?php require("../layout1.php");?>
+		<h1>Your ironmines</h1>
 		<p>
 			Siin saad sa hallata oma rauakaevandust.<br>
-			
-			<br><br>
-			Sinu ressursid:
-			<?php require("../resources_table.php"); echo $html;?>
 		</p>
 		<p>Sisesta mitu inimest soovid rauakaevandusse rakendada: </p>
 		<form method="POST">
@@ -112,7 +106,7 @@
 				Sul on vaja <?php echo $ToolsRes->res;?> puitu ja <?php echo $ToolsRes->res;?> rauda, et tooriistu uuendada.<br>
 				<a href="ironmining.php?tools=true">Uuenda!</a> <?php echo $upgrade_error2;?><br><br>
 			</p>
-				
 		</form>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

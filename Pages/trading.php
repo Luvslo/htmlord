@@ -75,19 +75,14 @@
 <html>
 	<head>
 		<title>Kauplemine</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
+	<body>
+		<?php require("../layout1.php");?>
 	
 		<h1>Kauplemine</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
 		<p>
 			Siin saad sa hallata oma kauplemist.<br>
-			
-			<br><br>
-			Sinu ressursid:
-			<?php require("../resources_table.php"); echo $html;?>
 		</p>
 		<p>Sisesta mitu inimest soovid kauplema panna: </p>
 		<form method="POST">
@@ -113,5 +108,6 @@
 				<a href="trading.php?tools=true">Uuenda!</a> <?php echo $upgrade_error2;?><br><br>
 			</p>
 		</form>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

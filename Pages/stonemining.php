@@ -28,6 +28,7 @@
 		$coins=$r->coins;
 		$iron=$r->iron;
 		$wood=$r->wood;
+		$workforce=$r->workforce;
 	}
 	
 	if (isset($_GET["work"])) {
@@ -74,19 +75,14 @@
 <html>
 	<head>
 		<title>Kivikaevandus</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
+	<body>
+		<?php require("../layout1.php");?>
 		<h1>Sinu kivikaevandus</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
 		<p>
 			Siin saad sa hallata oma kivikaevandust.<br>
-			
-			<br><br>
-			Sinu ressursid:
-			<?php require("../resources_table.php"); echo $html;?>
+
 		</p>
 		<p>Sisesta mitu inimest soovid kivikaevandusse rakendada: </p>
 		<form method="POST">
@@ -113,6 +109,7 @@
 			</p>
 
 		</form>
+		<?php require("../layout2.php");?>
 	</body>
 </html>
 

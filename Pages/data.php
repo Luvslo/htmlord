@@ -128,37 +128,14 @@
 <html>
 	<head>
 		<title>Sinu territoorium</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php include_once("../analyticstracking.php") ?>
-	<?php require("../styles.php"); ?>
+	<body>
+		<?php include_once("../analyticstracking.php") ?>
 	
-		<h1>Sinu territoorium</h1>
-		<a href="?logout=1">Log out</a><br>
-		<a href="forum.php">Forum</a><br>
-		<a href="leaderboard.php">Leaderboard</a><br>
-		<br>
-		<a href="postbox.php">Postbox (<?php echo $unread_count;?> unread)</a><br>
-		<p>
-			Welcome <?=$_SESSION["username"];?>!
-			<br>
-			Siin saad sa valitseda oma rahva ule.<br>
-			Mangid esimest korda? Vaikese ulevaate saad <a href="intro.php">siit!</a>
-			<br><br>
-			Your resources:
-			<?php require("../resources_table.php"); echo $html;?>
-		</p>
-		<p>Command: <br>
-			<a href="woodcutting.php">Woodcutters huts</a><br>
-			<a href="farming.php">Farms</a><br>
-			<a href="trading.php">Market</a><br>
-			<a href="stonemining.php">Quarry</a><br>
-			<a href="ironmining.php">Iron mines</a><br>
-			<a href="people.php">Houses</a><br>
-			<a href="war.php">War office</a>
-		</p>
-		<p>Your actions: 
-			<?php echo $html2;?>
-		</p>
+		<?php require("../layout1.php");?>
+		<h2>Your actions</h2>
+		<?php echo $html2;?>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

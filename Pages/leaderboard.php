@@ -8,40 +8,38 @@
 		exit();
 	}
 	$lb=$Leaderboard->get ();
+	
+	$html2="<table>";
+		$html2 .="<tr>";
+			$html2 .="<th>Koht</th>";
+			$html2 .="<th>Kasutajanimi</th>";
+			$html2 .="<th>Populatsioon</th>";
+			$html2 .="<th>Liitus</th>";
+		$html2 .="</tr>";
+		$counter=1;
+		foreach($lb as $l) {
+			
+			$html2 .="<tr>";
+				$html2 .="<td>".$counter."</td>";
+				$html2 .="<td><a href='user.php?user_id=".$l->user_id."'>".$l->username."</td>";
+				$html2 .="<td>".$l->population."</td>";
+				$html2 .="<td>".$l->created."</td>";
+			$html2 .="</tr>";
+			$counter=$counter+1;
+		}	
+	$html2 .="</table>";
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Edetabel</title>
+		<title>Leaderboard</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
-		<h1>Edetabel</h1>
-		<a href="data.php">Tagasi</a><br><br>
-		
+	<body>
+		<?php require("../layout1.php");?>
+		<h1>Leaderboard</h1>
+		<?php echo $html2; ?>
+		<?php require("../layout2.php");?>
 	</body>
 </html>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Koht</th>";
-			$html .="<th>Kasutajanimi</th>";
-			$html .="<th>Populatsioon</th>";
-			$html .="<th>Liitus</th>";
-		$html .="</tr>";
-		$counter=1;
-		foreach($lb as $l) {
-			
-			$html .="<tr>";
-				$html .="<td>".$counter."</td>";
-				$html .="<td><a href='user.php?user_id=".$l->user_id."'>".$l->username."</td>";
-				$html .="<td>".$l->population."</td>";
-				$html .="<td>".$l->created."</td>";
-			$html .="</tr>";
-			$counter=$counter+1;
-		}	
-	$html .="</table>";
-	echo $html;
-?>

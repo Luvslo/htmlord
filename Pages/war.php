@@ -290,13 +290,11 @@
 <html>
 	<head>
 		<title>War office</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
+	<body>
+		<?php require("../layout1.php");?>
 		<h1>Your war office</h1>
-		<a href="data.php">Back</a>
-		<br>
 		<p>
 			Here you can learn new tactics and war strategies to be<br>
 			more efficent in combat.
@@ -338,5 +336,6 @@
 		
 		<p>Your current defences: </p>
 		<?php echo $html3;?>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

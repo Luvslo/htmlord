@@ -59,20 +59,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Rahvas</title>
+		<title>Your people</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
-		<h1>Sinu rahvas</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
+	<body>
+		<?php require("../layout1.php");?>
+
+		<h1>Your people</h1>
+
 		<p>
 			Siin saad sa hallata oma rahva ule.<br>
-			
-			<br><br>
-			Sinu ressursid:
-			<?php require("../resources_table.php"); echo $html;?>
 		</p>
 		<p>Sisesta mitu inimest soovid paljuemisse rakendada: </p>
 		<form method="POST">
@@ -97,5 +93,6 @@
 			Sul on vaja <?php echo $WorkRes->res*2;?> kivi, <?php echo $WorkRes->res*2;?> rauda ja <?php echo $WorkRes->res*2;?> puitu, et maju uuendada.<br>
 			<a href="people.php?work=true">Uuenda!</a> <?php echo $upgrade_error;?><br><br>
 		</p>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

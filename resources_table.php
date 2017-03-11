@@ -1,23 +1,27 @@
 <?php
-	$html="<table>";
+	$html="";
 		$html .="<tr>";
-			$html .="<th>Wood</th>";
-			$html .="<th>Food</th>";
-			$html .="<th>Coins</th>";
-			$html .="<th>Stone</th>";
-			$html .="<th>Iron</th>";
-			$html .="<th>Workforce</th>";
+			$html .="<th width='400px'></th>";
+			$html .="<th class='header_res_th'>Wood</th>";
+			$html .="<th class='header_res_th'>Food</th>";
+			$html .="<th class='header_res_th'>Coins</th>";
+			$html .="<th class='header_res_th'>Stone</th>";
+			$html .="<th class='header_res_th'>Iron</th>";
+			$html .="<th class='header_res_th'>Workforce</th>";
+			$html .="<th width='0px'></th>";
 		$html .="</tr>";
 
 		foreach($res as $r) {
 			$html .="<tr>";
-				$html .="<td><div align='center'>".$r->wood."</div></td>";
-				$html .="<td><div align='center'>".$r->food."</div></td>";
-				$html .="<td><div align='center'>".$r->coins."</div></td>";
-				$html .="<td><div align='center'>".$r->stone."</div></td>";
-				$html .="<td><div align='center'>".$r->iron."</div></td>";
-				$html .="<td><div align='center'>".$r->workforce."</div></td>";
+				$html .="<td width='400px'></td>";
+				$html .="<td class='header_res'>".$r->wood."</td>";
+				$html .="<td class='header_res'>".$r->food."</td>";
+				$html .="<td class='header_res'>".$r->coins."</td>";
+				$html .="<td class='header_res'>".$r->stone."</td>";
+				$html .="<td class='header_res'>".$r->iron."</td>";
+				$html .="<td class='header_res'>".$r->workforce."</td>";
+				$html .="<th width='0px'></th>";
 			$html .="</tr>";
 		}	
-	$html .="</table>";
+	$html .="";
 ?>

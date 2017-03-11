@@ -89,20 +89,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Pollumajandus</title>
+		<title>Farms</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
-	
-		<h1>Siunu farmid</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
+	<body>
+		<?php require("../layout1.php");?>
+		<h1>Your farms</h1>
 		<p>
 			Siin saad sa hallata oma farme.<br>
-			
-			<br><br>
-			Sinu ressursid:
-			<?php require("../resources_table.php"); echo $html;?>
 		</p>
 		<p>Sisesta mitu inimest soovid pollumajandusse rakendada: </p>
 		<form method="POST">
@@ -130,6 +124,7 @@
 			Sul on vaja <?php echo $ToolsRes->res;?> puitu ja <?php echo $ToolsRes->res;?> rauda, et tooriistu uuendada.<br>
 			<a href="farming.php?tools=true">Uuenda!</a> <?php echo $upgrade_error3;?><br><br>
 		</p>
+		<?php require("../layout2.php");?>
 	</body>
 </html>
 

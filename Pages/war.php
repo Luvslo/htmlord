@@ -199,9 +199,91 @@
 			user ".$attacker_id."s attack against you. \n
 			");
 		}
-		
 		header("Location: war.php");
+		
 	}
+	
+	foreach($res as $r) {
+		$food=$r->food;
+		$coins=$r->coins;
+	}
+	
+	if(isset($_POST['category_input'])and isset ($_POST['time_input']) and $_SESSION["war_training"]==false){
+		if($_POST['time_input']*1000<=$food and $_POST['time_input']*2000<=$coins){
+			$Resources->updateCoins($user_id, cleanInput($_POST['time_input'])*-2000);
+			$Resources->updateFood($user_id, cleanInput($_POST['time_input'])*-1000);
+			if($_POST['category_input']=='attack_training'){
+				$Actions->save($user_id, 'attack_training', 1,cleanInput($_POST['time_input']));
+			}else{
+				$Actions->save($user_id, 'defence_training', 1,cleanInput($_POST['time_input']));
+			}
+			header("Location: data.php");
+		}else{
+			$resource_error="You dont have enough resources";
+		}
+	}
+	
+	if($_SESSION["war_training"]==true){
+		$resource_error="You are already training";
+	}
+	
+	$html2="<table>";
+		$html2 .="<tr>";
+			$html2 .="<th>Attacker</th>";
+			$html2 .="<th>Victim</th>";
+			$html2 .="<th>Category</th>";
+			$html2 .="<th>Army size</th>";
+			$html2 .="<th>Attack points</th>";
+			$html2 .="<th>Started</th>";
+			$html2 .="<th>Status</th>";
+		$html2 .="</tr>";
+
+		foreach($attacks as $a) {
+			$strcreated=strtotime($a->created)+3600-$current_datetime;
+			if ($strcreated <= 0){
+				$msg="<td><a href='war.php?attack_id=".$a->id."&victim_id=".$a->victim_id."'>Ready!</a></td>";
+			} else {
+				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
+			}
+			$html2 .="<tr>";
+				$html2 .="<td>".$a->attacker_id."</td>";
+				$html2 .="<td>".$a->victim_id."</td>";
+				$html2 .="<td>".$a->category."</td>";
+				$html2 .="<td>".$a->workforce_input."</td>";
+				$html2 .="<td>".$attack_mod*$a->workforce_input."</td>";
+				$html2 .="<td>".$a->created."</td>";
+				$html2 .=$msg;
+			$html2 .="</tr>";
+
+		}	
+	$html2 .="</table>";
+	
+	$html3="<table>";
+		$html3 .="<tr>";
+			$html3 .="<th>Attacker</th>";
+			$html3 .="<th>Victim</th>";
+			$html3 .="<th>Category</th>";
+			$html3 .="<th>Started</th>";
+			$html3 .="<th>Status</th>";
+		$html3 .="</tr>";
+
+		foreach($defences as $d) {
+			$strcreated=strtotime($d->created)+3600-$current_datetime;
+			if ($strcreated <= 0){
+				$msg="<td><a href='war.php?attack_id=".$d->id."&attacker_id=".$d->attacker_id."'>Ready!</a></td>";
+			} else {
+				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
+			}
+			$html3 .="<tr>";
+				$html3 .="<td>".$d->attacker_id."</td>";
+				$html3 .="<td>".$d->victim_id."</td>";
+				$html3 .="<td>".$d->category."</td>";
+				$html3 .="<td>".$d->created."</td>";
+				$html3 .=$msg;
+			$html3 .="</tr>";
+
+		}	
+	$html3 .="</table>";
 ?>
 
 <!DOCTYPE html>
@@ -223,140 +305,38 @@
 			Your defenders efficiency is <?php echo $defence_mod;?>
 			<br><br>
 			Your resources:
+			<?php require("../resources_table.php"); echo $html;?>
 		</p>
+		<p>
+			New strategies and outlandish teachers are very difficult<br>
+			to come by so learning is very costly and meant for<br>
+			end-game players only.<br>
+		</p>
+		<form method="POST">
+			<p>Select what kind of strategies do you want to study.</p>
+			<select name="category_input">
+				<option value="attack_training">Attack strategies</option>
+				<option value="defence_training">Defence strategies</option>
+			</select><br>
+			
+			<p>How many hours do you want to study?</p>
+			<select name="time_input">
+				<option value="1">1h - 2k coins, 1k food</option>
+				<option value="2">2h - 4k coins, 2k food</option>
+				<option value="3">3h - 6k coins, 3k food</option>
+				<option value="4">4h - 8k coins, 4k food</option>
+				<option value="5">5h - 10k coins, 5k food</option>
+				<option value="6">6h - 12k coins, 6k food</option>
+				<option value="7">7h - 14k coins, 7k food</option>
+			</select>
+			<br><br>
+			<input type="submit" value="Submit"><?php echo $resource_error;?>
+				
+		</form>
+		<p>Your current attacks: </p>
+		<?php echo $html2;?>
+		
+		<p>Your current defences: </p>
+		<?php echo $html3;?>
 	</body>
 </html>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Wood</th>";
-			$html .="<th>Stone</th>";
-			$html .="<th>Iron</th>";
-			$html .="<th>Coins</th>";
-			$html .="<th>Workforce</th>";
-			$html .="<th>Food</th>";
-		$html .="</tr>";
-
-		foreach($res as $r) {
-			$html .="<tr>";
-				$html .="<td>".$r->wood."</td>";
-				$html .="<td>".$r->stone."</td>";
-				$html .="<td>".$r->iron."</td>";
-				$html .="<td>".$r->coins."</td>";
-				$html .="<td>".$r->workforce."</td>";
-				$html .="<td>".$r->food."</td>";
-			$html .="</tr>";
-			$food=$r->food;
-			$coins=$r->coins;
-		}	
-	$html .="</table>";
-	echo $html;
-
-	if(isset($_POST['category_input'])and isset ($_POST['time_input']) and $_SESSION["war_training"]==false){
-		if($_POST['time_input']*1000<=$food and $_POST['time_input']*2000<=$coins){
-			$Resources->updateCoins($user_id, cleanInput($_POST['time_input'])*-2000);
-			$Resources->updateFood($user_id, cleanInput($_POST['time_input'])*-1000);
-			if($_POST['category_input']=='attack_training'){
-				$Actions->save($user_id, 'attack_training', 1,cleanInput($_POST['time_input']));
-			}else{
-				$Actions->save($user_id, 'defence_training', 1,cleanInput($_POST['time_input']));
-			}
-			header("Location: data.php");
-		}else{
-			$resource_error="You dont have enough resources";
-		}
-	}
-	if($_SESSION["war_training"]==true){
-		$resource_error="You are already training";
-	}
-?> 
-<p>
-	New strategies and outlandish teachers are very difficult<br>
-	to come by so learning is very costly and meant for<br>
-	end-game players only.<br>
-</p>
-<form method="POST">
-	<p>Select what kind of strategies do you want to study.</p>
-	<select name="category_input">
-		<option value="attack_training">Attack strategies</option>
-		<option value="defence_training">Defence strategies</option>
-	</select><br>
-	
-	<p>How many hours do you want to study?</p>
-	<select name="time_input">
-		<option value="1">1h - 2k coins, 1k food</option>
-		<option value="2">2h - 4k coins, 2k food</option>
-		<option value="3">3h - 6k coins, 3k food</option>
-		<option value="4">4h - 8k coins, 4k food</option>
-		<option value="5">5h - 10k coins, 5k food</option>
-		<option value="6">6h - 12k coins, 6k food</option>
-		<option value="7">7h - 14k coins, 7k food</option>
-	</select>
-	<br><br>
-	<input type="submit" value="Submit"><?php echo $resource_error;?>
-		
-</form>
-<p>Your current attacks: </p>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Attacker</th>";
-			$html .="<th>Victim</th>";
-			$html .="<th>Category</th>";
-			$html .="<th>Army size</th>";
-			$html .="<th>Attack points</th>";
-			$html .="<th>Started</th>";
-			$html .="<th>Status</th>";
-		$html .="</tr>";
-
-		foreach($attacks as $a) {
-			$strcreated=strtotime($a->created)+3600-$current_datetime;
-			if ($strcreated <= 0){
-				$msg="<td><a href='war.php?attack_id=".$a->id."&victim_id=".$a->victim_id."'>Ready!</a></td>";
-			} else {
-				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
-			}
-			$html .="<tr>";
-				$html .="<td>".$a->attacker_id."</td>";
-				$html .="<td>".$a->victim_id."</td>";
-				$html .="<td>".$a->category."</td>";
-				$html .="<td>".$a->workforce_input."</td>";
-				$html .="<td>".$attack_mod*$a->workforce_input."</td>";
-				$html .="<td>".$a->created."</td>";
-				$html .=$msg;
-			$html .="</tr>";
-
-		}	
-	$html .="</table>";
-	echo $html;
-?>
-<p>Your current defences: </p>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Attacker</th>";
-			$html .="<th>Victim</th>";
-			$html .="<th>Category</th>";
-			$html .="<th>Started</th>";
-			$html .="<th>Status</th>";
-		$html .="</tr>";
-
-		foreach($defences as $d) {
-			$strcreated=strtotime($d->created)+3600-$current_datetime;
-			if ($strcreated <= 0){
-				$msg="<td><a href='war.php?attack_id=".$d->id."&attacker_id=".$d->attacker_id."'>Ready!</a></td>";
-			} else {
-				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
-			}
-			$html .="<tr>";
-				$html .="<td>".$d->attacker_id."</td>";
-				$html .="<td>".$d->victim_id."</td>";
-				$html .="<td>".$d->category."</td>";
-				$html .="<td>".$d->created."</td>";
-				$html .=$msg;
-			$html .="</tr>";
-
-		}	
-	$html .="</table>";
-	echo $html;
-?>

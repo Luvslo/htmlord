@@ -29,71 +29,7 @@
 	$action=$Actions->getUser ($user_id);
 	$count=$Message->getUnReadCount ($user_id);
 	$unread_count=$count->unread_count;
-
-?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Sinu territoorium</title>
-	</head>
-	<body style="background-color:bisque;">
-	<?php include_once("../analyticstracking.php") ?>
-	<?php require("../styles.php"); ?>
 	
-		<h1>Sinu territoorium</h1>
-		<a href="?logout=1">Log out</a><br>
-		<a href="forum.php">Forum</a><br>
-		<a href="leaderboard.php">Leaderboard</a><br>
-		<br>
-		<a href="postbox.php">Postbox (<?php echo $unread_count;?> unread)</a><br>
-		<p>
-			Welcome <?=$_SESSION["username"];?>!
-			<br>
-			Siin saad sa valitseda oma rahva ule.<br>
-			Mangid esimest korda? Vaikese ulevaate saad <a href="intro.php">siit!</a>
-			<br><br>
-			Your resources:
-		</p>
-	</body>
-</html>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Wood</th>";
-			$html .="<th>Food</th>";
-			$html .="<th>Coins</th>";
-			$html .="<th>Stone</th>";
-			$html .="<th>Iron</th>";
-			$html .="<th>Workforce</th>";
-		$html .="</tr>";
-
-		foreach($res as $r) {
-			$html .="<tr>";
-				$html .="<td><div align='center'>".$r->wood."</div></td>";
-				$html .="<td><div align='center'>".$r->food."</div></td>";
-				$html .="<td><div align='center'>".$r->coins."</div></td>";
-				$html .="<td><div align='center'>".$r->stone."</div></td>";
-				$html .="<td><div align='center'>".$r->iron."</div></td>";
-				$html .="<td><div align='center'>".$r->workforce."</div></td>";
-			$html .="</tr>";
-		}	
-	$html .="</table>";
-	echo $html;
-?> 
-<p>Command: <br>
-	<a href="woodcutting.php">Woodcutters huts</a><br>
-	<a href="farming.php">Farms</a><br>
-	<a href="trading.php">Market</a><br>
-	<a href="stonemining.php">Quarry</a><br>
-	<a href="ironmining.php">Iron mines</a><br>
-	<a href="people.php">Houses</a><br>
-	<a href="war.php">War office</a>
-</p>
-
-<p>Your actions: </p>
-<?php
-
 	foreach($mods as $m) {
 		$wood_mod=$m->wood_mod;
 		$stone_mod=$m->stone_mod;
@@ -160,14 +96,14 @@
 			header("Location: data.php");
 		}
 	}
-
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Action</th>";
-			$html .="<th>Workforce</th>";
-			$html .="<th>Created</th>";
-			$html .="<th>Status</th>";
-		$html .="</tr>";
+	
+	$html2="<table>";
+		$html2 .="<tr>";
+			$html2 .="<th>Action</th>";
+			$html2 .="<th>Workforce</th>";
+			$html2 .="<th>Created</th>";
+			$html2 .="<th>Status</th>";
+		$html2 .="</tr>";
 
 		foreach($action as $a) {
 			$strcreated=strtotime($a->created)+$a->time_input*3600-$current_datetime;
@@ -176,14 +112,53 @@
 			} else {
 				$msg="<td>".gmdate('H:i:s', $strcreated)."</td>";
 			}
-			$html .="<tr>";
-				$html .="<td>".$a->category."</td>";
-				$html .="<td>".$a->workforce_input."</td>";
-				$html .="<td>".$a->created."</td>";
-				$html .=$msg;
-			$html .="</tr>";
+			$html2 .="<tr>";
+				$html2 .="<td>".$a->category."</td>";
+				$html2 .="<td>".$a->workforce_input."</td>";
+				$html2 .="<td>".$a->created."</td>";
+				$html2 .=$msg;
+			$html2 .="</tr>";
 
 		}	
-	$html .="</table>";
-	echo $html;
-?> 
+	$html2 .="</table>";
+
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sinu territoorium</title>
+	</head>
+	<body style="background-color:bisque;">
+	<?php include_once("../analyticstracking.php") ?>
+	<?php require("../styles.php"); ?>
+	
+		<h1>Sinu territoorium</h1>
+		<a href="?logout=1">Log out</a><br>
+		<a href="forum.php">Forum</a><br>
+		<a href="leaderboard.php">Leaderboard</a><br>
+		<br>
+		<a href="postbox.php">Postbox (<?php echo $unread_count;?> unread)</a><br>
+		<p>
+			Welcome <?=$_SESSION["username"];?>!
+			<br>
+			Siin saad sa valitseda oma rahva ule.<br>
+			Mangid esimest korda? Vaikese ulevaate saad <a href="intro.php">siit!</a>
+			<br><br>
+			Your resources:
+			<?php require("../resources_table.php"); echo $html;?>
+		</p>
+		<p>Command: <br>
+			<a href="woodcutting.php">Woodcutters huts</a><br>
+			<a href="farming.php">Farms</a><br>
+			<a href="trading.php">Market</a><br>
+			<a href="stonemining.php">Quarry</a><br>
+			<a href="ironmining.php">Iron mines</a><br>
+			<a href="people.php">Houses</a><br>
+			<a href="war.php">War office</a>
+		</p>
+		<p>Your actions: 
+			<?php echo $html2;?>
+		</p>
+	</body>
+</html>

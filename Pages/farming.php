@@ -25,57 +25,15 @@
 	$WorkRes=$Levels->getStep ($food_work);
 	$FertRes=$Levels->getStep ($food_fert);
 	$ToolsRes=$Levels->getStep ($food_tools);
-?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Pollumajandus</title>
-	</head>
-	<body style="background-color:bisque;">
-	<?php require("../styles.php"); ?>
 	
-		<h1>Siunu farmid</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
-		<p>
-			Siin saad sa hallata oma farme.<br>
-			
-			<br><br>
-			Sinu ressursid:
-		</p>
-	</body>
-</html>
-<?php
-	$html="<table>";
-		$html .="<tr>";
-			$html .="<th>Puit</th>";
-			$html .="<th>Kivi</th>";
-			$html .="<th>Raud</th>";
-			$html .="<th>Raha</th>";
-			$html .="<th>Toojoud</th>";
-			$html .="<th>Toit</th>";
-		$html .="</tr>";
-
-		foreach($res as $r) {
-			$html .="<tr>";
-				$html .="<td>".$r->wood."</td>";
-				$html .="<td>".$r->stone."</td>";
-				$html .="<td>".$r->iron."</td>";
-				$html .="<td>".$r->coins."</td>";
-				$html .="<td>".$r->workforce."</td>";
-				$html .="<td>".$r->food."</td>";
-			$html .="</tr>";
-			$workforce=$r->workforce;
-			$food=$r->food;
-			$stone=$r->stone;
-			$coins=$r->coins;
-			$iron=$r->iron;
-			$wood=$r->wood;
-		}	
-	$html .="</table>";
-	echo $html;
-	
+	foreach($res as $r) {
+		$workforce=$r->workforce;
+		$food=$r->food;
+		$stone=$r->stone;
+		$coins=$r->coins;
+		$iron=$r->iron;
+		$wood=$r->wood;
+	}
 	if (isset($_GET["work"])) {
 		
 		if($stone >= $WorkRes->res and $coins >= $WorkRes->res){
@@ -126,30 +84,52 @@
 			$workforce_input_error="min=1, max=sinu toojoud";
 		}
 	}
-?> 
-<p>Sisesta mitu inimest soovid pollumajandusse rakendada: </p>
-<form method="POST">
-	<select name="time_input">
-		<option value="1">1h</option>
-		<option value="2">2h</option>
-		<option value="3">3h</option>
-		<option value="4">4h</option>
-		<option value="5">5h</option>
-		<option value="6">6h</option>
-		<option value="7">7h</option>
-	</select>	
-	<input name="workforce_input" type="number"> <?php echo $workforce_input_error;?><br>
-	<input type="submit" value="Rakenda"><br>
-	<button type="submit" name="workforce_input" value="<?php echo $workforce;?>">Rakenda koik (<?php echo $workforce;?>)</button>
-</form>
-<p>
-	Sinu pollumajanduse tase on <?php echo $food_work;?><br>
-	Sul on vaja <?php echo $WorkRes->res;?> kivi ja <?php echo $WorkRes->res;?> raha, et pollumajandust uuendada.<br>
-	<a href="farming.php?work=true">Uuenda!</a> <?php echo $upgrade_error;?><br><br>
-	Sinu pollumajanduse vaetise tase on <?php echo $food_fert;?><br>
-	Sul on vaja <?php echo $FertRes->res*2;?> raha, et vaetist uuendada.<br>
-	<a href="farming.php?fert=true">Uuenda!</a> <?php echo $upgrade_error2;?><br><br>
-	Sinu pollumajanduse tooriistade tase on <?php echo $food_tools;?><br>
-	Sul on vaja <?php echo $ToolsRes->res;?> puitu ja <?php echo $ToolsRes->res;?> rauda, et tooriistu uuendada.<br>
-	<a href="farming.php?tools=true">Uuenda!</a> <?php echo $upgrade_error3;?><br><br>
-</p>
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pollumajandus</title>
+	</head>
+	<body style="background-color:bisque;">
+	<?php require("../styles.php"); ?>
+	
+		<h1>Siunu farmid</h1>
+		<a href="data.php">Tagasi</a>
+		<br>
+		<p>
+			Siin saad sa hallata oma farme.<br>
+			
+			<br><br>
+			Sinu ressursid:
+			<?php require("../resources_table.php"); echo $html;?>
+		</p>
+		<p>Sisesta mitu inimest soovid pollumajandusse rakendada: </p>
+		<form method="POST">
+			<select name="time_input">
+				<option value="1">1h</option>
+				<option value="2">2h</option>
+				<option value="3">3h</option>
+				<option value="4">4h</option>
+				<option value="5">5h</option>
+				<option value="6">6h</option>
+				<option value="7">7h</option>
+			</select>	
+			<input name="workforce_input" type="number"> <?php echo $workforce_input_error;?><br>
+			<input type="submit" value="Rakenda"><br>
+			<button type="submit" name="workforce_input" value="<?php echo $workforce;?>">Rakenda koik (<?php echo $workforce;?>)</button>
+		</form>
+		<p>
+			Sinu pollumajanduse tase on <?php echo $food_work;?><br>
+			Sul on vaja <?php echo $WorkRes->res;?> kivi ja <?php echo $WorkRes->res;?> raha, et pollumajandust uuendada.<br>
+			<a href="farming.php?work=true">Uuenda!</a> <?php echo $upgrade_error;?><br><br>
+			Sinu pollumajanduse vaetise tase on <?php echo $food_fert;?><br>
+			Sul on vaja <?php echo $FertRes->res*2;?> raha, et vaetist uuendada.<br>
+			<a href="farming.php?fert=true">Uuenda!</a> <?php echo $upgrade_error2;?><br><br>
+			Sinu pollumajanduse tooriistade tase on <?php echo $food_tools;?><br>
+			Sul on vaja <?php echo $ToolsRes->res;?> puitu ja <?php echo $ToolsRes->res;?> rauda, et tooriistu uuendada.<br>
+			<a href="farming.php?tools=true">Uuenda!</a> <?php echo $upgrade_error3;?><br><br>
+		</p>
+	</body>
+</html>
+

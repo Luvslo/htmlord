@@ -1,25 +1,29 @@
+<?php
+	if (isset($_GET["logout"])) {
+		session_destroy();
+		header("Location: login.php");
+		exit();
+	}
+	if (!isset($_SESSION["userId"])) {
+		header("Location: login.php");
+		exit();
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Ulevaade</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
 	
-	<body style="background-color:bisque;">
+	<body>
+		<?php require("../layout1.php");?>
 		
 		<h1>Ulevaade mangust</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
-		
-		
 		<p>
 			Antud lehekulg on taiendamisel, srry..
 		</p>
-		<br>
-		<h3></h3>
-		
-		<p>
-			
-		</p>
-
+		<?php require("../layout2.php");?>
 	</body>
 </html>

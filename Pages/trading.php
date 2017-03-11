@@ -6,6 +6,14 @@
 	$workforce_input_error="";
 	$upgrade_error="";
 	$upgrade_error2="";
+	
+	if (isset($_GET["logout"])) {
+		
+		session_destroy();
+		
+		header("Location: login.php");
+		exit();
+	}
 
 	if (!isset($_SESSION["userId"])) {
 		header("Location: login.php");

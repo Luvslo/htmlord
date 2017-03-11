@@ -11,6 +11,14 @@
 	$content="";
 	$content_error="";
 	
+	if (isset($_GET["logout"])) {
+		
+		session_destroy();
+		
+		header("Location: login.php");
+		exit();
+	}
+	
 	if(!isset($_GET["user_id"])){
 		$back_button="postbox.php";
 	}else{

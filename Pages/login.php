@@ -55,14 +55,12 @@
 
 	<head>
 		<title>Logi sisse</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-			
+	<body>
+		<?php require("../layout3.php");?>
 		<h1>Logi sisse!</h1>
-		<a href="../index.php">Avaleht</a>
-		<br>
-		<a href="registration.php">Loo kasutaja!</a>
-		<br><br>
+
 		<form method="POST">
 		
 			<p style ="color:red;"><?=$error;?></p>
@@ -79,5 +77,6 @@
 			
 		
 		</form>
+		<?php require("../layout2.php");?>
 	</body>
 </html>

@@ -104,14 +104,11 @@
 <html>
 	<head>
 		<title>Loo kasutaja</title>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-		<body style="background-color:bisque;">
-
+		<body>
+			<?php require("../layout3.php");?>
 			<h1>Loo kasutaja!</h1>
-			<a href="../index.php">Avaleht</a>
-			<br>
-			<a href="login.php">Logi sisse!</a>
-			<br><br>
 			<form method="POST">
 			
 				<label>Kasutajanimi</label>
@@ -138,6 +135,6 @@
 				<input type="submit" value="Loo kasutaja">
 
 			</form>
-
+			<?php require("../layout2.php");?>
 	</body>
 </html>

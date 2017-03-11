@@ -62,41 +62,74 @@
 	}
 	
 	$post = $Forum->getForumPosts($q, $sort, $order);
+	
+	$html2 = "<table>";
+	
+	$html2 .= "<tr>";
+	
+		
+		$IdOrder = "ASC";
+		$arrow ="&darr;";
+		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
+			$IdOrder = "DESC";
+			$arrow ="&uarr;";
+		}
+		
+		$html2 .= "<th>
+					<a href='?q=".$q."&sort=type&order=".$IdOrder."'>
+						id ".$arrow."
+					</a>
+				 </th>";
+				 
+		$userOrder = "ASC";
+		$arrow ="&darr;";
+		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
+			$userOrder = "DESC";
+			$arrow ="&uarr;";
+		}
+		
+		$html2 .= "<th>
+					<a href='?q=".$q."&sort=name&order=".$userOrder."'>
+						Autor ".$arrow."
+					</a>
+				 </th>";
+				 
+		$titleOrder = "ASC";
+		$arrow ="&darr;";
+		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
+			$titleOrder = "DESC";
+			$arrow ="&uarr;";
+		}
+		
+		$html2 .= "<th>
+					<a href='?q=".$q."&sort=age&order=".$titleOrder."'>
+						Pealkiri ".$arrow."
+					</a>
+				 </th>";
+		
+		
+		foreach($post as $p){
+			$html2 .= "<tr>";
+				$html2 .= "<td>".$p->id."</td>";
+				$html2 .= "<td>".$p->username."</td>";
+				$html2 .= "<td><a href='comments.php?id=".$p->id."'>".$p->title."</a></td>";
+				$html2 .= "<td>".$p->created."</td>";
+			$html2 .= "</tr>";	
+		}
+		
+	$html2 .= "</table>";
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Foorum</title>
-		<style>
-
-			table, td, th {
-				border: 1px solid bisque;
-				padding: 5px;
-			}
-			table {
-				border-spacing: 5px;
-			}
-			td {
-				background-color: LightSalmon;
-				color: black;
-				padding: 5px;
-				text-align: left;
-			}
-			th {
-				background-color: LightSalmon;
-				color: black;
-				padding: 5px;
-				text-align: right;
-			}
-	</style>
+		<link rel="stylesheet" type="text/css" href="../styles.css">
 	</head>
-	<body style="background-color:bisque;">
-		
+	<body>
 		<?php include_once("../analyticstracking.php") ?>
+		<?php require("../layout1.php");?>
 		<h1>Foorum</h1>
-		<a href="data.php">Tagasi</a>
-		<br>
 		<p>
 			Kui on midagi oelda, siis vali sobiv teema voi tee uus ning realiseeri oma sonavabadus.<br><br>
 			Uue teema tegemiseks sisesta siia teema pealkiri: 
@@ -114,64 +147,7 @@
 			<input type="submit" value="Otsi">
 	
 		</form>
+		<?php echo $html2;?>
+		<?php require("../layout2.php");?>
 	</body>
 </html>
-<?php 
-	
-	$html = "<table>";
-	
-	$html .= "<tr>";
-	
-		
-		$IdOrder = "ASC";
-		$arrow ="&darr;";
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$IdOrder = "DESC";
-			$arrow ="&uarr;";
-		}
-		
-		$html .= "<th>
-					<a href='?q=".$q."&sort=type&order=".$IdOrder."'>
-						id ".$arrow."
-					</a>
-				 </th>";
-				 
-		$userOrder = "ASC";
-		$arrow ="&darr;";
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$userOrder = "DESC";
-			$arrow ="&uarr;";
-		}
-		
-		$html .= "<th>
-					<a href='?q=".$q."&sort=name&order=".$userOrder."'>
-						Autor ".$arrow."
-					</a>
-				 </th>";
-				 
-		$titleOrder = "ASC";
-		$arrow ="&darr;";
-		if (isset($_GET["order"]) && $_GET["order"] == "ASC"){
-			$titleOrder = "DESC";
-			$arrow ="&uarr;";
-		}
-		
-		$html .= "<th>
-					<a href='?q=".$q."&sort=age&order=".$titleOrder."'>
-						Pealkiri ".$arrow."
-					</a>
-				 </th>";
-		
-		
-		foreach($post as $p){
-			$html .= "<tr>";
-				$html .= "<td>".$p->id."</td>";
-				$html .= "<td>".$p->username."</td>";
-				$html .= "<td><a href='comments.php?id=".$p->id."'>".$p->title."</a></td>";
-				$html .= "<td>".$p->created."</td>";
-			$html .= "</tr>";	
-		}
-		
-	$html .= "</table>";
-	echo $html;
-?>

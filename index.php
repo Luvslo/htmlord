@@ -2,17 +2,14 @@
 <html>
 	<head>
 		<title>Avaleht</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
 	</head>
 	
-	<body style="background-color:bisque;">
-		<div style="color:black;padding:20px;">
+	<body>
+		<?php require("layout4.php");?>
 		<h1>Avaleht</h1>
-		<a href="Pages/login.php">Logi sisse!</a>
-		<br>
-		<a href="Pages/registration.php">Loo kasutaja!</a>
-		
 		<p>
-			Tere tulemast browserfun kodulehele!
+			Tere tulemast HTMLord kodulehele!
 			<br><br>
 			Lehe point on lihtsalt php ja htmli, nende koige algsemal kujul, katsetamine vaikese browseripohise manguna
 			<br>
@@ -37,7 +34,6 @@
 			*Probleem mangu peamehhanismi funktsiooniga - 6:13 16.01.2017<br>
 			*Lehe idee, plaan, esimene leht(nurgakivi) - 2:00 11.01.2017<br>
 		</p>
-		</div>
-
+		<?php require("layout2.php");?>
 	</body>
 </html>

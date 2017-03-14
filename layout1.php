@@ -1,16 +1,16 @@
 <?php
 	$count=$Message->getUnReadCount ($user_id);
 	$unread_count=$count->unread_count;
-	$res=$Resources->getUser ($user_id);
+	$res=$Resources->getUser ($_SESSION["userId"]);
 ?>
 
 <div class="flex-container">
 
 <header>
-	<div class="borderless">
+	<div>
 		<table>
 			<tr>
-				<td class="htmlord" colspan="4" style="font-size: 2em; font-weight: bold; text-align: left; padding: 10px; text-decoration: underline;" valign="bottom"><a href="news.php">HTMLord</a></td>
+				<td colspan="4" style="font-size: 2em; font-weight: bold; text-align: left; padding: 10px; text-decoration: underline;" valign="bottom"><a href="news.php" style="color: white;">HTMLord</a></td>
 				<td colspan="4"></td>
 			</tr>
 			<tr>

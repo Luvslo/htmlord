@@ -310,8 +310,6 @@
 			Your attackers efficiency is <?php echo $attack_mod;?><br>
 			Your defenders efficiency is <?php echo $defence_mod;?>
 			<br><br>
-			Your resources:
-			<?php require("../resources_table.php"); echo $html;?>
 		</p>
 		<p>
 			New strategies and outlandish teachers are very difficult<br>

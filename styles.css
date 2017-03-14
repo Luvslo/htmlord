@@ -1,3 +1,7 @@
+a{
+	color: hotpink;
+}
+
 .flex-container {
 	display: -webkit-flex;
 	display: flex;  
@@ -105,3 +109,5 @@ table{
 	font-weight: bold;
 	text-decoration: none;
 }
+
+

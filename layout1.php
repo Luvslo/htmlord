@@ -1,5 +1,5 @@
 <?php
-	$count=$Message->getUnReadCount ($user_id);
+	$count=$Message->getUnReadCount ($_SESSION["userId"]);
 	$unread_count=$count->unread_count;
 	$res=$Resources->getUser ($_SESSION["userId"]);
 ?>

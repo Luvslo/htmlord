@@ -173,7 +173,7 @@ class Message {
 		
 		if ($stmt->execute()) {
 			
-			echo "Kirja saatmine onnestus!";
+			
 		} else {
 			echo "ERROR ".$stmt->error;
 		}

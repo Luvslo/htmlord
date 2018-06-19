@@ -1,4 +1,4 @@
-# htmlord
+# htmlord - edasiarendusmõtted
 
 1. Population cap, territoorium.
 	Kuni mingi levelini on võimalik osta/teha maad juurde kasutades ressursse nagu lihtsalt upgradena,
@@ -35,8 +35,6 @@
 	ja vastupidi mõned religioonid on kaitsvamad jne.
 10. ründaja või kaitsja aitamine.
 	kui on käimas rünnak (aega 1h) siis igaüks võib otsustada kas ta tahab selles rünnakus osaleda. see võib sõltuda religioonist.
-11. rumours.
-	iga mängija võib teise mängija lehele jätta väikese teate, mis oleks väike kirjeldus. nt ta on fcking munn, koguaeg ründab pede
-12. teadete süsteem.
+11. teadete süsteem.
 	kui mängijat rünnatakse, siis saadetakse talle sellest teade, et ta saaks kaitseks valmistuda. kutsuda sõpru appi või vabastada tööjõudu
 	teadete alla võiksid mängijad üksteisele sõnumeid ka nt saata.
